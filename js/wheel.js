@@ -56,6 +56,13 @@ class ChoreWheel {
 
     ctx.save();
     ctx.translate(cx, cy);
+
+    // Clip everything (slices, icons, labels) to the wheel's circle so
+    // large emoji glyphs can't visually spill outside it.
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+    ctx.clip();
+
     ctx.rotate(this.rotation);
 
     for (let i = 0; i < n; i++) {
@@ -94,8 +101,8 @@ class ChoreWheel {
 
       const item = this.slices[i];
       const icon = item.icon || this.theme.icons[i % this.theme.icons.length];
-      const iconX = flip ? -(radius * 0.945) : radius * 0.945;
-      const textX = flip ? -(radius * 0.81) : radius * 0.81;
+      const iconX = flip ? -(radius * 0.86) : radius * 0.86;
+      const textX = flip ? -(radius * 0.74) : radius * 0.74;
 
       ctx.font = `${iconSize}px sans-serif`;
       ctx.fillText(icon, iconX, 12 * scale);
