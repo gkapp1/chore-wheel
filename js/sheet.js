@@ -68,13 +68,22 @@ function parseCSV(text) {
  *   - themes: map of kid name -> saved theme key (only populated when using
  *     APPS_SCRIPT_URL with a "Theme" column; otherwise empty)
  */
+/**
+ * Appends a cache-busting timestamp param to a URL so neither the browser
+ * nor Google's "publish to web" CDN serve a stale cached response.
+ */
+function _cacheBust(url) {
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}_=${Date.now()}`;
+}
+
 async function loadChoreData() {
   let rows = null;
   let themes = {};
 
   if (CONFIG.APPS_SCRIPT_URL && CONFIG.APPS_SCRIPT_URL.trim() !== "") {
     try {
-      const res = await fetch(CONFIG.APPS_SCRIPT_URL, { cache: "no-store" });
+      const res = await fetch(_cacheBust(CONFIG.APPS_SCRIPT_URL), { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       if (Array.isArray(json.rows) && json.rows.length > 0) {
@@ -88,7 +97,7 @@ async function loadChoreData() {
 
   if (!rows && CONFIG.SHEET_CSV_URL && CONFIG.SHEET_CSV_URL.trim() !== "") {
     try {
-      const res = await fetch(CONFIG.SHEET_CSV_URL, { cache: "no-store" });
+      const res = await fetch(_cacheBust(CONFIG.SHEET_CSV_URL), { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const parsed = parseCSV(text);
