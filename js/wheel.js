@@ -101,7 +101,12 @@ class ChoreWheel {
       ctx.fillText(icon, iconX, 12 * scale);
 
       ctx.font = `bold ${textSize}px 'Baloo 2', sans-serif`;
-      ctx.fillText(this._truncate(item.chore, maxChars), textX, 12 * scale);
+      const lines = this._wrapText(item.chore, maxChars, 2);
+      const lineHeight = textSize * 1.2;
+      const startY = 12 * scale - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, lineIdx) => {
+        ctx.fillText(line, textX, startY + lineIdx * lineHeight);
+      });
       ctx.restore();
     }
 
@@ -119,6 +124,40 @@ class ChoreWheel {
 
   _truncate(text, max) {
     return text.length > max ? text.slice(0, max - 1) + "…" : text;
+  }
+
+  /**
+   * Word-wraps text into up to maxLines lines of at most maxChars each,
+   * truncating the last line with an ellipsis if words remain unplaced.
+   */
+  _wrapText(text, maxChars, maxLines) {
+    const words = text.split(" ");
+    const lines = [];
+    let current = "";
+
+    for (const word of words) {
+      const candidate = current ? `${current} ${word}` : word;
+      if (candidate.length <= maxChars) {
+        current = candidate;
+        continue;
+      }
+      lines.push(current || this._truncate(word, maxChars));
+      current = current ? word : "";
+      if (lines.length === maxLines) break;
+    }
+
+    if (lines.length < maxLines && current) {
+      lines.push(current);
+      current = "";
+    }
+
+    const placed = lines.join(" ").split(" ").length;
+    if (current || placed < words.length) {
+      const last = lines.length - 1;
+      lines[last] = this._truncate(lines[last] + "…", maxChars);
+    }
+
+    return lines;
   }
 
   /**
