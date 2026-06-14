@@ -19,8 +19,12 @@
   }
 
   function getThemeForKid(kid) {
+    const serverTheme = serverThemes[kid];
+    if (serverTheme && CONFIG.THEMES[serverTheme]) return serverTheme;
+
     const saved = localStorage.getItem(themeKeyForKid(kid));
     if (saved && CONFIG.THEMES[saved]) return saved;
+
     return CONFIG.DEFAULT_THEME;
   }
 
@@ -48,6 +52,7 @@
   wheel.onStop = (winner) => showResult(winner);
 
   let choresByKid = {};
+  let serverThemes = {};
   let currentKid = null;
 
   function fitCanvas() {
@@ -88,8 +93,11 @@
 
   themeSelect.addEventListener("change", () => {
     if (!currentKid) return;
-    localStorage.setItem(themeKeyForKid(currentKid), themeSelect.value);
-    applyTheme(themeSelect.value);
+    const themeKey = themeSelect.value;
+    localStorage.setItem(themeKeyForKid(currentKid), themeKey);
+    serverThemes[currentKid] = themeKey;
+    saveThemeChoice(currentKid, themeKey);
+    applyTheme(themeKey);
   });
 
   function showResult(winner) {
@@ -112,7 +120,9 @@
   // ---- Load data ----
   statusEl.textContent = "Loading chores...";
   buildThemePicker();
-  choresByKid = await loadChoreData();
+  const data = await loadChoreData();
+  choresByKid = data.choresByKid;
+  serverThemes = data.themes;
   fitCanvas();
   buildKidPicker();
 

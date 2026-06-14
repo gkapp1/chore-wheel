@@ -59,14 +59,34 @@ function parseCSV(text) {
 }
 
 /**
- * Loads chore data either from the configured published CSV URL,
- * or falls back to CONFIG.FALLBACK_DATA if no URL is set / fetch fails.
- * Returns a map of kid name -> array of { chore, icon }.
+ * Loads chore data from the configured Apps Script web app or published CSV
+ * URL, or falls back to CONFIG.FALLBACK_DATA if neither is set / the fetch
+ * fails.
+ *
+ * Returns { choresByKid, themes }:
+ *   - choresByKid: map of kid name -> array of { chore, icon }
+ *   - themes: map of kid name -> saved theme key (only populated when using
+ *     APPS_SCRIPT_URL with a "Theme" column; otherwise empty)
  */
 async function loadChoreData() {
   let rows = null;
+  let themes = {};
 
-  if (CONFIG.SHEET_CSV_URL && CONFIG.SHEET_CSV_URL.trim() !== "") {
+  if (CONFIG.APPS_SCRIPT_URL && CONFIG.APPS_SCRIPT_URL.trim() !== "") {
+    try {
+      const res = await fetch(CONFIG.APPS_SCRIPT_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      if (Array.isArray(json.rows) && json.rows.length > 0) {
+        rows = json.rows;
+        themes = json.themes || {};
+      }
+    } catch (err) {
+      console.warn("Failed to load data from Apps Script, falling back.", err);
+    }
+  }
+
+  if (!rows && CONFIG.SHEET_CSV_URL && CONFIG.SHEET_CSV_URL.trim() !== "") {
     try {
       const res = await fetch(CONFIG.SHEET_CSV_URL, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -88,12 +108,30 @@ async function loadChoreData() {
     rows = CONFIG.FALLBACK_DATA;
   }
 
-  const byKid = {};
+  const choresByKid = {};
   rows.forEach(({ kid, chore, icon }) => {
     if (!kid || !chore) return;
-    if (!byKid[kid]) byKid[kid] = [];
-    byKid[kid].push({ chore, icon: icon || "" });
+    if (!choresByKid[kid]) choresByKid[kid] = [];
+    choresByKid[kid].push({ chore, icon: icon || "" });
   });
 
-  return byKid;
+  return { choresByKid, themes };
+}
+
+/**
+ * Saves a kid's theme choice back to the sheet via the Apps Script web app
+ * (if configured). Fire-and-forget: failures are logged but don't disrupt
+ * the UI, since the choice is also saved to localStorage as a fallback.
+ */
+function saveThemeChoice(kid, themeKey) {
+  if (!CONFIG.APPS_SCRIPT_URL || CONFIG.APPS_SCRIPT_URL.trim() === "") return;
+
+  fetch(CONFIG.APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify({ kid, theme: themeKey }),
+  }).catch((err) => {
+    console.warn("Failed to save theme choice to sheet.", err);
+  });
 }

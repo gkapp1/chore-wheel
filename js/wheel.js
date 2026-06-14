@@ -1,5 +1,9 @@
 // ===== Canvas wheel rendering + drag/spin physics =====
 
+// Radius (px) the slice font sizes/positions are tuned for; other radii scale
+// proportionally so labels keep fitting within their slice.
+const REFERENCE_RADIUS = 292;
+
 class ChoreWheel {
   /**
    * @param {HTMLCanvasElement} canvas
@@ -75,22 +79,29 @@ class ChoreWheel {
       // instead of upside-down.
       const flip = mid > Math.PI / 2 && mid < (3 * Math.PI) / 2;
 
+      // Scale font sizes, text position, and max length relative to the
+      // wheel's radius so labels fit within their slice on small screens.
+      const scale = radius / REFERENCE_RADIUS;
+      const iconSize = Math.max(16, Math.round(32 * scale));
+      const textSize = Math.max(11, Math.round(18 * scale));
+      const maxChars = Math.max(8, Math.round(22 * scale));
+
       ctx.save();
       ctx.rotate(mid + (flip ? Math.PI : 0));
       ctx.textAlign = flip ? "left" : "right";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = this.theme.sliceTextColor;
+      ctx.fillStyle = this._contrastColor(color);
 
       const item = this.slices[i];
       const icon = item.icon || this.theme.icons[i % this.theme.icons.length];
-      const iconX = flip ? -(radius - 16) : radius - 16;
-      const textX = flip ? -(radius - 56) : radius - 56;
+      const iconX = flip ? -(radius * 0.945) : radius * 0.945;
+      const textX = flip ? -(radius * 0.81) : radius * 0.81;
 
-      ctx.font = "32px sans-serif";
-      ctx.fillText(icon, iconX, 12);
+      ctx.font = `${iconSize}px sans-serif`;
+      ctx.fillText(icon, iconX, 12 * scale);
 
-      ctx.font = "bold 18px 'Baloo 2', sans-serif";
-      ctx.fillText(this._truncate(item.chore, 22), textX, 12);
+      ctx.font = `bold ${textSize}px 'Baloo 2', sans-serif`;
+      ctx.fillText(this._truncate(item.chore, maxChars), textX, 12 * scale);
       ctx.restore();
     }
 
@@ -108,6 +119,21 @@ class ChoreWheel {
 
   _truncate(text, max) {
     return text.length > max ? text.slice(0, max - 1) + "…" : text;
+  }
+
+  /**
+   * Picks black or white text depending on which gives better contrast
+   * against the given background color, so labels stay readable on both
+   * light and dark slices within the same theme.
+   */
+  _contrastColor(hexColor) {
+    const hex = hexColor.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // Relative luminance (perceptual weighting).
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.55 ? "#2b2b2b" : "#ffffff";
   }
 
   // ---- Pointer / touch drag-to-spin ----

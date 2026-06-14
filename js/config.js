@@ -7,13 +7,21 @@ const CONFIG = {
   // https://docs.google.com/spreadsheets/d/e/2PACX-XXXXXXXX/pub?output=csv
   SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRmCDvUePbSyuyc8rH98idFdG08SaixC77od178Hnf_3xf5oPvEuzCX0YCoqoULzI7Q9d11I6ds-bQb/pub?gid=1572088753&single=true&output=csv",
 
+  // Optional: URL of the deployed Apps Script web app (see apps-script/Code.gs).
+  // When set, this is used INSTEAD of SHEET_CSV_URL for loading chores, and
+  // also enables saving each kid's theme choice back to the sheet so it's
+  // remembered across browsers/devices. Leave empty to use SHEET_CSV_URL
+  // (themes then only persist on this browser via localStorage).
+  APPS_SCRIPT_URL: "",
+
   // Expected sheet columns (header row), in any order:
   //   Kid   - the child's name (used to build the kid picker)
   //   Chore - the chore text shown on the wheel slice
   //   Icon  - (optional) an emoji to show on the slice, e.g. 🧹
+  //   Theme - (optional, only used with APPS_SCRIPT_URL) the kid's saved theme key
 
-  // Used when SHEET_CSV_URL is empty or the fetch fails, so the wheel
-  // still works for local testing / first run.
+  // Used when neither APPS_SCRIPT_URL nor SHEET_CSV_URL is set, or the fetch
+  // fails, so the wheel still works for local testing / first run.
   FALLBACK_DATA: [
     { kid: "Ava", chore: "Make your bed", icon: "🛏️" },
     { kid: "Ava", chore: "Feed the dog", icon: "🐶" },
