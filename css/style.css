@@ -32,11 +32,36 @@ html, body {
   pointer-events: none;
 }
 
-.bg-decor span {
+.bg-decor > div {
   position: absolute;
   display: block;
   line-height: 1;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.15));
+}
+
+.poke-ball {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, #ee4b4b 0%, #ee4b4b 46%, #2b2b2b 46%, #2b2b2b 54%, #fff 54%, #fff 100%);
+  border: 4px solid #2b2b2b;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.poke-ball::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28%;
+  height: 28%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 4px solid #2b2b2b;
+  border-radius: 50%;
+  box-sizing: border-box;
 }
 
 .title {

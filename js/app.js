@@ -52,11 +52,15 @@
 
   function renderDecor(theme) {
     bgDecor.innerHTML = "";
-    (theme.decor || []).forEach(({ emoji, style }) => {
-      const span = document.createElement("span");
-      span.textContent = emoji;
-      span.style.cssText = style;
-      bgDecor.appendChild(span);
+    (theme.decor || []).forEach(({ emoji, html, style }) => {
+      const el = document.createElement("div");
+      if (html) {
+        el.innerHTML = html;
+      } else {
+        el.textContent = emoji;
+      }
+      el.style.cssText = style;
+      bgDecor.appendChild(el);
     });
   }
 

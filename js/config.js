@@ -190,5 +190,35 @@ const CONFIG = {
         { emoji: "🦴", style: "right:6vw; top:16vh; font-size:clamp(24px,5vw,38px); transform:rotate(-30deg); opacity:0.8;" },
       ],
     },
+
+    monster: {
+      name: "Monster Trainer",
+      emoji: "⚡",
+      colors: [
+        "#ef5350", // fire
+        "#42a5f5", // water
+        "#66bb6a", // grass
+        "#ffd54f", // electric
+        "#ba68c8", // psychic
+        "#a1887f", // ground
+        "#4db6ac", // tech
+        "#ffa726", // energy
+      ],
+      icons: ["⚡", "🔥", "💧", "🍃", "🥚", "⭐", "🎒", "🐉"],
+      sliceTextColor: "#2b2b2b",
+      background:
+        "radial-gradient(circle at 50% 0%, #cdeac0 0%, transparent 50%), " +
+        "linear-gradient(180deg, #aee1f9 0%, #d4f1be 60%, #bfe6a0 100%)",
+      accent: "#ef5350",
+      decor: [
+        { html: "<div class=\"poke-ball\"></div>", style: "left:-3vw; bottom:-6vh; width:clamp(90px,22vw,200px); height:clamp(90px,22vw,200px); opacity:0.95;" },
+        { html: "<div class=\"poke-ball\"></div>", style: "right:4vw; top:8vh; width:clamp(40px,9vw,70px); height:clamp(40px,9vw,70px); transform:rotate(20deg); opacity:0.85;" },
+        { emoji: "⚡", style: "left:6vw; top:4vh; font-size:clamp(40px,9vw,72px); opacity:0.9; transform:rotate(-10deg);" },
+        { emoji: "🍃", style: "right:14vw; top:24vh; font-size:clamp(24px,5vw,36px); opacity:0.8;" },
+        { emoji: "🥚", style: "right:-2vw; bottom:14vh; font-size:clamp(50px,12vw,100px); opacity:0.9;" },
+        { emoji: "⭐", style: "left:14vw; bottom:18vh; font-size:clamp(20px,4vw,30px); opacity:0.85;" },
+        { emoji: "🎒", style: "left:48%; bottom:-2vh; font-size:clamp(50px,12vw,100px); transform:translateX(-50%); opacity:0.85;" },
+      ],
+    },
   },
 };
