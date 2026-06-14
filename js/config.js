@@ -220,5 +220,36 @@ const CONFIG = {
         { emoji: "🎒", style: "left:48%; bottom:-2vh; font-size:clamp(50px,12vw,100px); transform:translateX(-50%); opacity:0.85;" },
       ],
     },
+
+    mermaid: {
+      name: "Mermaid Lagoon",
+      emoji: "🧜‍♀️",
+      colors: [
+        "#48bfe3",
+        "#56cfe1",
+        "#64dfdf",
+        "#72efdd",
+        "#5e60ce",
+        "#6930c3",
+        "#ff8fab",
+        "#80ffdb",
+      ],
+      icons: ["🧜‍♀️", "🐚", "🐠", "🪸", "🫧", "🐬", "🌊", "⭐"],
+      sliceTextColor: "#0b3954",
+      background:
+        "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.35) 0%, transparent 40%), " +
+        "radial-gradient(circle at 85% 100%, #5e60ce 0%, transparent 50%), " +
+        "linear-gradient(180deg, #caf0f8 0%, #90e0ef 45%, #00b4d8 100%)",
+      accent: "#5e60ce",
+      decor: [
+        { emoji: "🧜‍♀️", style: "right:-2vw; bottom:-4vh; font-size:clamp(80px,19vw,170px); opacity:0.95;" },
+        { emoji: "🪸", style: "left:-3vw; bottom:-5vh; font-size:clamp(70px,17vw,150px); opacity:0.9;" },
+        { emoji: "🐚", style: "left:8vw; bottom:6vh; font-size:clamp(32px,7vw,48px); opacity:0.85;" },
+        { emoji: "🫧", style: "left:14vw; top:14vh; font-size:clamp(24px,5vw,36px); opacity:0.7;" },
+        { emoji: "🫧", style: "right:18vw; top:30vh; font-size:clamp(18px,4vw,28px); opacity:0.7;" },
+        { emoji: "🐬", style: "right:6vw; top:8vh; font-size:clamp(44px,10vw,80px); transform:rotate(-10deg); opacity:0.9;" },
+        { emoji: "⭐", style: "left:50%; top:-4vh; font-size:clamp(40px,9vw,72px); transform:translateX(-50%); opacity:0.8;" },
+      ],
+    },
   },
 };
