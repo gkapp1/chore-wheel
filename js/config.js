@@ -283,5 +283,36 @@ const CONFIG = {
         { emoji: "🍀", style: "right:10vw; bottom:16vh; font-size:clamp(24px,5vw,36px); opacity:0.8;" },
       ],
     },
+
+    arcade: {
+      name: "Video Game",
+      emoji: "🎮",
+      colors: [
+        "#ff006e",
+        "#fb5607",
+        "#ffbe0b",
+        "#8338ec",
+        "#3a86ff",
+        "#06ffa5",
+        "#ff4d6d",
+        "#00f5d4",
+      ],
+      icons: ["🎮", "🕹️", "🏆", "⭐", "💎", "👾", "🔥", "🎯"],
+      sliceTextColor: "#ffffff",
+      background:
+        "radial-gradient(circle at 20% 10%, rgba(0,245,212,0.18) 0%, transparent 40%), " +
+        "radial-gradient(circle at 85% 90%, rgba(255,0,110,0.25) 0%, transparent 45%), " +
+        "linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)",
+      accent: "#00f5d4",
+      decor: [
+        { emoji: "🎮", style: "left:-3vw; bottom:-5vh; font-size:clamp(80px,19vw,170px); transform:rotate(-8deg); opacity:0.95;" },
+        { emoji: "🕹️", style: "right:-1vw; bottom:-3vh; font-size:clamp(60px,15vw,130px); transform:rotate(10deg); opacity:0.9;" },
+        { emoji: "👾", style: "left:8vw; top:6vh; font-size:clamp(40px,9vw,72px); opacity:0.9;" },
+        { emoji: "🏆", style: "right:8vw; top:8vh; font-size:clamp(40px,9vw,72px); opacity:0.9;" },
+        { emoji: "💎", style: "left:14vw; bottom:18vh; font-size:clamp(24px,5vw,38px); opacity:0.85;" },
+        { emoji: "⚡", style: "right:14vw; bottom:24vh; font-size:clamp(28px,6vw,42px); transform:rotate(-10deg); opacity:0.85;" },
+        { emoji: "🪙", style: "left:50%; top:-3vh; font-size:clamp(36px,8vw,60px); transform:translateX(-50%); opacity:0.85;" },
+      ],
+    },
   },
 };
