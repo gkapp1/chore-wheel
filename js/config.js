@@ -251,5 +251,37 @@ const CONFIG = {
         { emoji: "⭐", style: "left:50%; top:-4vh; font-size:clamp(40px,9vw,72px); transform:translateX(-50%); opacity:0.8;" },
       ],
     },
+
+    fairy: {
+      name: "Fairy Garden",
+      emoji: "🧚",
+      colors: [
+        "#c8b6ff",
+        "#ffc8dd",
+        "#b9fbc0",
+        "#ffd6a5",
+        "#a0c4ff",
+        "#bdb2ff",
+        "#ffafcc",
+        "#d0f4de",
+      ],
+      icons: ["🧚", "🌸", "🍄", "🦋", "✨", "🌷", "🍀", "🌙"],
+      sliceTextColor: "#5a4a82",
+      background:
+        "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 45%), " +
+        "radial-gradient(circle at 85% 100%, #b9fbc0 0%, transparent 50%), " +
+        "linear-gradient(180deg, #e0c3fc 0%, #f6c6e0 55%, #d4f5d6 100%)",
+      accent: "#caa6f7",
+      decor: [
+        { emoji: "🍄", style: "left:-2vw; bottom:-4vh; font-size:clamp(70px,17vw,150px); opacity:0.95;" },
+        { emoji: "🍄", style: "right:6vw; bottom:-2vh; font-size:clamp(40px,9vw,80px); opacity:0.9;" },
+        { emoji: "🧚", style: "right:-1vw; top:6vh; font-size:clamp(60px,14vw,120px); transform:rotate(10deg); opacity:0.95;" },
+        { emoji: "🌙", style: "left:6vw; top:4vh; font-size:clamp(40px,9vw,72px); opacity:0.9;" },
+        { emoji: "🦋", style: "left:16vw; top:24vh; font-size:clamp(28px,6vw,42px); transform:rotate(-15deg); opacity:0.85;" },
+        { emoji: "✨", style: "right:16vw; top:30vh; font-size:clamp(20px,4vw,32px); opacity:0.85;" },
+        { emoji: "🌸", style: "left:10vw; bottom:14vh; font-size:clamp(28px,6vw,44px); opacity:0.85;" },
+        { emoji: "🍀", style: "right:10vw; bottom:16vh; font-size:clamp(24px,5vw,36px); opacity:0.8;" },
+      ],
+    },
   },
 };
