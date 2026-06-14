@@ -11,6 +11,7 @@
   const closeResult = document.getElementById("closeResult");
   const themeSelect = document.getElementById("themeSelect");
   const appTitle = document.getElementById("appTitle");
+  const bgDecor = document.getElementById("bgDecor");
 
   const THEME_STORAGE_PREFIX = "chorewheel-theme-";
 
@@ -46,6 +47,17 @@
     statusEl.style.color = theme.sliceTextColor;
     themeSelect.value = themeKey;
     wheel.setTheme(theme);
+    renderDecor(theme);
+  }
+
+  function renderDecor(theme) {
+    bgDecor.innerHTML = "";
+    (theme.decor || []).forEach(({ emoji, style }) => {
+      const span = document.createElement("span");
+      span.textContent = emoji;
+      span.style.cssText = style;
+      bgDecor.appendChild(span);
+    });
   }
 
   const wheel = new ChoreWheel(canvas, CONFIG.THEMES[CONFIG.DEFAULT_THEME]);
