@@ -314,5 +314,36 @@ const CONFIG = {
         { emoji: "🪙", style: "left:50%; top:-3vh; font-size:clamp(36px,8vw,60px); transform:translateX(-50%); opacity:0.85;" },
       ],
     },
+
+    astrobot: {
+      name: "Astrobot",
+      emoji: "🤖",
+      colors: [
+        "#4361ee",
+        "#4cc9f0",
+        "#f77f00",
+        "#7209b7",
+        "#90e0ef",
+        "#e63946",
+        "#00b4d8",
+        "#ffd60a",
+      ],
+      icons: ["🤖", "🚀", "⚡", "🔧", "🛸", "🪐", "💫", "🔩"],
+      sliceTextColor: "#ffffff",
+      background:
+        "radial-gradient(circle at 15% 85%, rgba(67,97,238,0.4) 0%, transparent 50%), " +
+        "radial-gradient(circle at 85% 15%, rgba(247,127,0,0.3) 0%, transparent 45%), " +
+        "linear-gradient(135deg, #03071e 0%, #0d1b2a 55%, #1b2838 100%)",
+      accent: "#4cc9f0",
+      decor: [
+        { emoji: "🤖", style: "left:-3vw; bottom:-5vh; font-size:clamp(90px,22vw,200px); opacity:0.95;" },
+        { emoji: "🛸", style: "right:-2vw; top:4vh; font-size:clamp(60px,15vw,130px); transform:rotate(-8deg); opacity:0.9;" },
+        { emoji: "⚡", style: "left:8vw; top:8vh; font-size:clamp(36px,8vw,60px); opacity:0.85;" },
+        { emoji: "🦾", style: "right:-1vw; bottom:10vh; font-size:clamp(50px,12vw,100px); transform:rotate(-15deg); opacity:0.9;" },
+        { emoji: "🔩", style: "right:10vw; bottom:22vh; font-size:clamp(28px,6vw,44px); transform:rotate(25deg); opacity:0.85;" },
+        { emoji: "🔧", style: "left:14vw; bottom:16vh; font-size:clamp(28px,6vw,44px); transform:rotate(-30deg); opacity:0.8;" },
+        { emoji: "🪐", style: "left:50%; top:-3vh; font-size:clamp(40px,9vw,70px); transform:translateX(-50%); opacity:0.85;" },
+      ],
+    },
   },
 };
